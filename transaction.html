@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction-G&G</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        header,
+        footer {
+            background-color: #273526;
+            color: #E4E6D9;
+            text-align: center;
+            padding: 10px;
+        }
+
+        nav {
+            background-color: #C0CFB2;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .container {
+            display: flex;
+            flex: 1;
+        }
+
+        .sidebar {
+            background-color: #6D8777;
+            width: 15%;
+            color: #E4E6D9;
+            padding: 10px;
+        }
+
+        .content {
+            background-color: #E4E6D9;
+            flex: 1;
+            padding: 20px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .table-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #273526;
+            padding-bottom: 20px;
+        }
+
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #273526;
+        }
+
+        th,
+        td {
+            padding: 10px;
+        }
+
+        .form-container {
+            margin-bottom: 20px;
+        }
+
+        .form-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .form-row label {
+            width: 150px;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .form-row input,
+        .form-row select {
+            flex: 1;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .button-container button {
+            padding: 10px 15px;
+            border: none;
+            background-color: #273526;
+            color: #E4E6D9;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .button-container button:hover {
+            background-color: #3a4a3b;
+        }
+    </style>
+</head>
+
+<body onload="loadProductData()">
+    <header>
+        <h1>Transaction Page</h1>
+    </header>
+    <nav>
+        <a href="index.html">Home</a> |
+        <a href="product.html">Products/Services</a> |
+        <a href="A_10523114_SAPTA.html">Transaction</a> |
+        <a href="about.html">About Us</a>
+    </nav>
+    <div class="container">
+        <aside class="sidebar">
+            <img src="https://i.pinimg.com/564x/bd/9c/76/bd9c76f86b3effb80bd4f5e877ef8a28.jpg" alt="sidebar image">
+            <h2>BLOOM AND GROW: Pusat Perawatan Kulit One-Stop-Shop Anda.</h2>
+            <p>BLOOM AND GROW: adalah destinasi perawatan kulit terlengkap yang menawarkan beragam pilihan merek ternama.
+                Kami memahami pentingnya perawatan kulit yang tepat dan efektif, itulah sebabnya kami menyediakan
+                berbagai produk dari brand lokal hingga internasional terfavorit Anda.</p>
+            <h2>Bhinneka Kebutuhan</h2>
+            <p>Kami percaya setiap orang memiliki kebutuhan kulit yang unik. Di Bloom and Grow, Anda akan menemukan
+                rangkaian produk perawatan kulit yang luas, mulai dari pembersih, pelembab wajah, serum, hingga tabir
+                surya. Tak hanya itu, kami juga menyediakan produk untuk mengatasi berbagai permasalahan kulit, seperti
+                jerawat, noda hitam, kerutan, dan tanda penuaan dini.</p>
+            <h2>Kualitas Premium, Harga Bersahabat</h2>
+            <p>Kami berkomitmen menghadirkan produk perawatan kulit berkualitas tinggi dengan harga yang kompetitif. Kami
+                menjalin kerja sama langsung dengan berbagai brand ternama untuk memastikan produk yang Anda dapatkan
+                asli dan terpercaya.</p>
+            <h2>Belanja Mudah & Menyenangkan</h2>
+            <p>Nikmati pengalaman berbelanja yang mudah dan menyenangkan di BG. Jelajahi website kami yang user-friendly
+                dan temukan produk yang sesuai dengan kebutuhan Anda. Kami juga menyediakan tim customer service yang
+                ramah dan siap membantu Anda.</p>
+            <h2>Jadikan BG sebagai partner perawatan kulit Anda dan dapatkan kulit sehat bercahaya!</h2>
+        </aside>
+        <main class="content">
+            <h2>Penjualan:</h2>
+            <div id="productTableContainer" class="table-container"></div>
+            <div class="form-container">
+                <div class="form-row">
+                    <label for="noOrder">No Order:</label>
+                    <input type="text" id="noOrder" name="noOrder" required>
+                </div>
+                <div class="form-row">
+                    <label for="kodeBarang">Kode Barang:</label>
+                    <input type="text" id="kodeBarang" name="kodeBarang" oninput="fillDetails()" required>
+                </div>
+                <div class="form-row">
+                    <label for="tulisanDinding">Tulisan Dinding:</label>
+                    <input type="text" id="tulisanDinding" name="tulisanDinding" readonly>
+                </div>
+                <div class="form-row">
+                    <label for="hargaSatuan">Harga Satuan:</label>
+                    <input type="text" id="hargaSatuan" name="hargaSatuan" readonly>
+                </div>
+                <div class="form-row">
+                    <label for="jumlah">Jumlah:</label>
+                    <input type="number" id="jumlah" name="jumlah" oninput="calculateTotal()" required>
+                </div>
+                <div class="form-row">
+                    <label for="total">Total:</label>
+                    <input type="text" id="total" name="total" readonly>
+                </div>
+                <div class="form-row">
+                    <label for="namaPenerima">Nama Penerima:</label>
+                    <input type="text" id="namaPenerima" name="namaPenerima" required>
+                </div>
+                <div class="form-row">
+                    <label for="alamatPenerima">Alamat Penerima:</label>
+                    <input type="text" id="alamatPenerima" name="alamatPenerima" required>
+                </div>
+                <div class="form-row">
+                    <label for="metodePengiriman">Metode Pengiriman:</label>
+                    <select id="metodePengiriman" name="metodePengiriman" required>
+                        <option value="JNE">JNE</option>
+                        <option value="TIKI">TIKI</option>
+                        <option value="POS">POS</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <label for="catatanTambahan">Catatan Tambahan:</label>
+                    <input type="text" id="catatanTambahan" name="catatanTambahan">
+                </div>
+                <div class="button-container">
+                    <button type="button" onclick="simpanData()">Simpan</button>
+                    <button type="button" onclick="generateInvoice()">Bayar</button>
+                </div>
+            </div>
+        </main>
+    </div>
+    <footer>
+        <p>&copy; 2023 - G&G</p>
+    </footer>
+    <script>
+        let productData = [
+            { kode: 'H001', tulisan: 'Hersteller Wonder Veggie Balancing Cleansing Foam', harga: 964731 },
+            { kode: 'H002', tulisan: 'Hersteller Wonder Veggie Hydrating Gel Cream 50ml/1.69oz', harga: 864731 },
+            { kode: 'H003', tulisan: 'Hersteller Wonder Veggie Juicy Treatment Essence 150ml', harga: 109447932 },
+            { kode: 'BS001', tulisan: 'Squalane + Vitamin C Dark Spot Serum', harga: 547060 },
+            { kode: 'BS002', tulisan: '100% Squalane Oil', harga: 803180 },
+            { kode: 'BS003', tulisan: 'Squalane + Phyto-Retinol Serum', harga: 109447932 },
+            { kode: 'BS004', tulisan: 'Squalane + Marine Algae Eye Cream', harga: 109447932 },
+            { kode: 'BS005', tulisan: 'Squalane + Copper Peptide Rapid Plumping Serum', harga: 109447932 },
+            { kode: 'I001', tulisan: '[iUNIK] Centella Calming Daily Sunscreen 60ml', harga: 239976 },
+            { kode: 'I002', tulisan: '[iUNIK] Tea Tree Relief Serum 50ml', harga: 32174473 },
+            { kode: 'I003', tulisan: '[iUNIK] Centella Bubble Cleansing Foam 150ml', harga: 28955416 },
+            { kode: 'C001', tulisan: '[CARYOPHY] Smart Waterful Cream 50ml', harga: 49726213 },
+            { kode: 'C002', tulisan: '[CARYOPHY] Glass Skin Ampoule 30ml', harga: 428908 },
+            { kode: 'C003', tulisan: '[CARYOPHY] Portulaca Toner 300ml', harga: 49726213 },
+        ];
+
+        function formatRupiah(angka) {
+            return 'Rp' + angka.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        }
+
+        function fillDetails() {
+            let kodeBarang = document.getElementById('kodeBarang').value;
+            let product = productData.find(p => p.kode === kodeBarang);
+            if (product) {
+                document.getElementById('tulisanDinding').value = product.tulisan;
+                document.getElementById('hargaSatuan').value = formatRupiah(product.harga);
+            } else {
+                document.getElementById('tulisanDinding').value = '';
+                document.getElementById('hargaSatuan').value = '';
+            }
+        }
+
+        function calculateTotal() {
+            let hargaSatuan = document.getElementById('hargaSatuan').value.replace(/[^0-9]/g, '');
+            let jumlah = document.getElementById('jumlah').value;
+            let total = hargaSatuan * jumlah;
+            document.getElementById('total').value = formatRupiah(total);
+        }
+
+        function loadProductData() {
+            let productTableContainer = document.getElementById('productTableContainer');
+            let productTable = '<table><tr><th>Kode Barang</th><th>Nama Barang</th><th>Harga</th></tr>';
+            for (let product of productData) {
+                productTable += `<tr><td>${product.kode}</td><td>${product.tulisan}</td><td>${formatRupiah(product.harga)}</td></tr>`;
+            }
+            productTable += '</table>';
+            productTableContainer.innerHTML = productTable;
+        }
+
+        function simpanData() {
+            const data = {
+                noOrder: document.getElementById('noOrder').value,
+                kodeBarang: document.getElementById('kodeBarang').value,
+                tulisanDinding: document.getElementById('tulisanDinding').value,
+                hargaSatuan: document.getElementById('hargaSatuan').value,
+                jumlah: document.getElementById('jumlah').value,
+                namaPenerima: document.getElementById('namaPenerima').value,
+                alamatPenerima: document.getElementById('alamatPenerima').value,
+                metodePengiriman: document.getElementById('metodePengiriman').value,
+                catatanTambahan: document.getElementById('catatanTambahan').value
+            };
+
+            const transaksiData = JSON.parse(localStorage.getItem('transaksiData')) || [];
+            transaksiData.push(data);
+            localStorage.setItem('transaksiData', JSON.stringify(transaksiData));
+            alert('Data berhasil disimpan!');
+        }
+
+        function generateInvoice() {
+    const transaksiData = JSON.parse(localStorage.getItem('transaksiData')) || [];
+    if (transaksiData.length === 0) {
+        alert('Tidak ada data transaksi untuk dibuat invoice.');
+        return;
+    }
+    const lastTransaction = transaksiData[transaksiData.length - 1];
+
+    const hargaSatuan = lastTransaction.hargaSatuan.replace(/[^0-9]/g, '');
+
+    const url = `invoice.html?noOrder=${lastTransaction.noOrder}&kodeBarang=${lastTransaction.kodeBarang}&tulisanDinding=${lastTransaction.tulisanDinding}&hargaSatuan=${hargaSatuan}&jumlah=${lastTransaction.jumlah}&namaPenerima=${lastTransaction.namaPenerima}&alamatPenerima=${lastTransaction.alamatPenerima}&metodePengiriman=${lastTransaction.metodePengiriman}&catatanTambahan=${lastTransaction.catatanTambahan}`;
+    window.open(url, '_blank');
+}
+
+    </script>
+</body>
+
+</html>

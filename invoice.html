@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+        .invoice-container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .invoice-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .invoice-header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .invoice-details {
+            margin-bottom: 20px;
+        }
+        .invoice-details p {
+            margin: 5px 0;
+        }
+        .invoice-items table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .invoice-items table, .invoice-items th, .invoice-items td {
+            border: 1px solid #ddd;
+        }
+        .invoice-items th, .invoice-items td {
+            padding: 8px;
+            text-align: left;
+        }
+        .invoice-footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="invoice-container">
+        <div class="invoice-header">
+            <h1>Invoice</h1>
+        </div>
+        <div class="invoice-details">
+            <p><strong>No Order:</strong> <span id="noOrder"></span></p>
+            <p><strong>Kode Barang:</strong> <span id="kodeBarang"></span></p>
+            <p><strong>Nama Penerima:</strong> <span id="namaPenerima"></span></p>
+            <p><strong>Alamat Penerima:</strong> <span id="alamatPenerima"></span></p>
+            <p><strong>Metode Pengiriman:</strong> <span id="metodePengiriman"></span></p>
+        </div>
+        <div class="invoice-items">
+            <table>
+                <tr>
+                    <th>Deskripsi</th>
+                    <th>Jumlah</th>
+                    <th>Harga Satuan</th>
+                    <th>Total</th>
+                </tr>
+                <tr>
+                    <td id="tulisanDinding"></td>
+                    <td id="jumlah"></td>
+                    <td id="hargaSatuan"></td>
+                    <td id="total"></td>
+                </tr>
+            </table>
+        </div>
+        <div class="invoice-footer">
+            <p><strong>Catatan Tambahan:</strong> <span id="catatanTambahan"></span></p>
+        </div>
+    </div>
+    <script>
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            var results = regex.exec(location.search);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+        }
+
+        document.getElementById('noOrder').innerText = getUrlParameter('noOrder');
+        document.getElementById('kodeBarang').innerText = getUrlParameter('kodeBarang');
+        document.getElementById('namaPenerima').innerText = getUrlParameter('namaPenerima');
+        document.getElementById('alamatPenerima').innerText = getUrlParameter('alamatPenerima');
+        document.getElementById('metodePengiriman').innerText = getUrlParameter('metodePengiriman');
+        document.getElementById('tulisanDinding').innerText = getUrlParameter('tulisanDinding');
+        document.getElementById('jumlah').innerText = getUrlParameter('jumlah');
+        document.getElementById('hargaSatuan').innerText = getUrlParameter('hargaSatuan');
+        document.getElementById('catatanTambahan').innerText = getUrlParameter('catatanTambahan');
+
+        const jumlah = parseFloat(getUrlParameter('jumlah'));
+        const hargaSatuan = parseFloat(getUrlParameter('hargaSatuan'));
+        const total = jumlah * hargaSatuan;
+        document.getElementById('total').innerText = total.toFixed(2);
+    </script>
+</body>
+</html>
